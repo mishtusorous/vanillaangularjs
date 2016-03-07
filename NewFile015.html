@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Iterate over data from Webservice.</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<!-- This is the angularjs magic. -->
+<script>
+	var app = angular.module('myApp', []);
+	app.controller('myController', function($scope, $http) {
+
+		/* Lets get some data from an actual service.  */
+		$http.get("http://www.w3schools.com/angular/customers.php").then(
+				function(response) {
+					console.log("This is what came back -"
+							+ response.data.records);
+					$scope.names = response.data.records;
+				});
+	});
+</script>
+
+
+</head>
+<body>
+
+	<h1>Get data from a webservice and show it on the page.</h1>
+
+	<div ng-app="myApp" ng-controller="myController">
+
+		<ul>
+			<li ng-repeat="x in names">Name[{{x.Name}}]</li>
+		</ul>
+	</div>
+
+</body>
+</html>
